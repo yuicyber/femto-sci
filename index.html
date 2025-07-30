@@ -523,6 +523,269 @@
                 font-size: 2rem;
             }
         }
+
+        /* Add this to your existing CSS */
+    .dna-research-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 3rem;
+        align-items: center;
+    }
+    
+    .dna-visual {
+        position: relative;
+        height: 400px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    
+    .dna-strand {
+        position: relative;
+        width: 120px;
+        height: 300px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        z-index: 2;
+    }
+    
+    .dna-base {
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color: white;
+        font-weight: bold;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    }
+    
+    .dna-base::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: currentColor;
+        opacity: 0.8;
+        z-index: -1;
+    }
+    
+    .dna-base::after {
+        content: attr(class).replace('pair-','');
+        position: absolute;
+        color: white;
+        font-size: 1.2rem;
+    }
+    
+    .pair-a { color: #FF6B6B; }
+    .pair-t { color: #4ECDC4; }
+    .pair-c { color: #45B7D1; }
+    .pair-g { color: #FFA07A; }
+    
+    .dna-helix {
+        position: absolute;
+        width: 120px;
+        height: 300px;
+        display: flex;
+        justify-content: space-between;
+    }
+    
+    .helix-line {
+        width: 2px;
+        height: 100%;
+        background: linear-gradient(to bottom, 
+            transparent 0%, 
+            rgba(74, 107, 255, 0.6) 20%, 
+            rgba(74, 107, 255, 0.8) 50%, 
+            rgba(74, 107, 255, 0.6) 80%, 
+            transparent 100%);
+        animation: helixSpin 8s linear infinite;
+    }
+    
+    .helix-line:nth-child(2) {
+        animation-delay: -4s;
+    }
+    
+    .dna-magnifier {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        width: 180px;
+        height: 180px;
+    }
+    
+    .magnifier-glass {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        border: 8px solid rgba(255,255,255,0.8);
+        position: absolute;
+        top: 0;
+        left: 0;
+        box-shadow: 0 0 0 8px rgba(74, 107, 255, 0.1),
+                    0 0 30px rgba(0,0,0,0.2);
+    }
+    
+    .magnifier-glass::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background: radial-gradient(circle at 30% 30%, 
+            rgba(255,255,255,0.8) 0%, 
+            rgba(255,255,255,0.5) 50%, 
+            rgba(255,255,255,0) 70%);
+    }
+    
+    .magnifier-handle {
+        width: 80px;
+        height: 15px;
+        background: linear-gradient(to right, 
+            rgba(200,200,200,0.8), 
+            rgba(240,240,240,0.9));
+        position: absolute;
+        bottom: 20px;
+        right: 0;
+        transform: rotate(30deg);
+        border-radius: 10px;
+        box-shadow: 2px 2px 5px rgba(0,0,0,0.1);
+    }
+    
+    .dna-content {
+        display: grid;
+        gap: 2rem;
+    }
+    
+    .dna-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        transition: all 0.3s ease;
+        border-left: 4px solid var(--primary);
+    }
+    
+    .dna-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 15px 40px rgba(0,0,0,0.1);
+    }
+    
+    .dna-card h3 {
+        color: var(--dark);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+    }
+    
+    .dna-card h3 i {
+        color: var(--primary);
+    }
+    
+    .dna-stats {
+        display: flex;
+        gap: 2rem;
+        margin-top: 1.5rem;
+    }
+    
+    .stat {
+        text-align: center;
+    }
+    
+    .stat-number {
+        display: block;
+        font-size: 2rem;
+        font-weight: 700;
+        color: var(--primary);
+        line-height: 1;
+    }
+    
+    .stat-label {
+        font-size: 0.9rem;
+        color: #666;
+    }
+    
+    .dna-features {
+        list-style: none;
+        margin-top: 1rem;
+    }
+    
+    .dna-features li {
+        margin-bottom: 0.8rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+    }
+    
+    .dna-features i {
+        color: var(--primary);
+    }
+    
+    .dna-tech-badges {
+        display: flex;
+        gap: 1rem;
+        margin-top: 1.5rem;
+        flex-wrap: wrap;
+    }
+    
+    .tech-badge {
+        background: var(--primary);
+        color: white;
+        padding: 0.3rem 1rem;
+        border-radius: 50px;
+        font-size: 0.8rem;
+        font-weight: 600;
+    }
+    
+    .tech-badge:nth-child(2) {
+        background: var(--accent);
+    }
+    
+    @keyframes helixSpin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+    }
+    
+    /* Responsive */
+    @media (max-width: 992px) {
+        .dna-research-container {
+            grid-template-columns: 1fr;
+        }
+        
+        .dna-visual {
+            height: 300px;
+            margin-bottom: 2rem;
+        }
+    }
+    
+    @media (max-width: 576px) {
+        .dna-visual {
+            height: 250px;
+        }
+        
+        .dna-strand,
+        .dna-helix {
+            width: 100px;
+            height: 250px;
+        }
+        
+        .dna-base {
+            width: 50px;
+            height: 50px;
+        }
+        
+        .magnifier-glass {
+            width: 80px;
+            height: 80px;
+        }
+    }
     </style>
 </head>
 <body>
@@ -755,7 +1018,70 @@
             </div>
         </div>
     </section>
-
+<section id="dna-research" class="section" style="background: linear-gradient(135deg, #f5f7ff 0%, #e8f4f8 100%);">
+    <h2 class="section-title">DNA Innovative Research</h2>
+    
+    <div class="dna-research-container">
+        <!-- DNA Discovery Visual -->
+        <div class="dna-visual fade-in">
+            <div class="dna-strand">
+                <div class="dna-base pair-a"></div>
+                <div class="dna-base pair-t"></div>
+                <div class="dna-base pair-c"></div>
+                <div class="dna-base pair-g"></div>
+                <div class="dna-base pair-a"></div>
+                <div class="dna-base pair-t"></div>
+                <div class="dna-base pair-c"></div>
+                <div class="dna-base pair-g"></div>
+            </div>
+            <div class="dna-helix">
+                <div class="helix-line"></div>
+                <div class="helix-line"></div>
+            </div>
+            <div class="dna-magnifier">
+                <div class="magnifier-glass"></div>
+                <div class="magnifier-handle"></div>
+            </div>
+        </div>
+        
+        <!-- Research Content -->
+        <div class="dna-content">
+            <div class="dna-card fade-in delay-1">
+                <h3><i class="fas fa-dna"></i> Next-Gen Sequencing</h3>
+                <p>Revolutionary approaches to DNA sequencing that deliver faster, more accurate results with our proprietary femto-scale analysis technology.</p>
+                <div class="dna-stats">
+                    <div class="stat">
+                        <span class="stat-number">100x</span>
+                        <span class="stat-label">Faster</span>
+                    </div>
+                    <div class="stat">
+                        <span class="stat-number">99.9%</span>
+                        <span class="stat-label">Accuracy</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="dna-card fade-in delay-2">
+                <h3><i class="fas fa-atom"></i> Molecular Engineering</h3>
+                <p>Precision editing at the femtoscale enables unprecedented control over genetic structures for therapeutic applications.</p>
+                <ul class="dna-features">
+                    <li><i class="fas fa-check-circle"></i> Base-pair precision</li>
+                    <li><i class="fas fa-check-circle"></i> Zero off-target effects</li>
+                    <li><i class="fas fa-check-circle"></i> Real-time monitoring</li>
+                </ul>
+            </div>
+            
+            <div class="dna-card fade-in delay-3">
+                <h3><i class="fas fa-microscope"></i> Femto-Imaging</h3>
+                <p>Our breakthrough imaging technology reveals DNA structures at femtometer resolution, uncovering previously invisible molecular interactions.</p>
+                <div class="dna-tech-badges">
+                    <span class="tech-badge">Nobel Prize Technique</span>
+                    <span class="tech-badge">Patent Pending</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
     <!-- Footer -->
     <footer>
         <div class="footer-content">
