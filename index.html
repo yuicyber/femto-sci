@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Femto Research Group - กลุ่มวิจัยระดับฟีมโต</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary: #4a6bff;
+            --secondary: #00c8ff;
+            --dark: #1a1a2e;
+            --light: #f8f9fa;
+            --accent: #ff4a6b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        
+        /* Navbar */
+        .navbar {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            padding: 1rem 2rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            color: white;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.5rem;
+        }
+        
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+        
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+        
+        .nav-links li {
+            margin-left: 2rem;
+        }
+        
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+        }
+        
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+        
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            color: white;
+            font-size: 1.5rem;
+        }
+        
+        /* Hero Section */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url('https://images.unsplash.com/photo-1635070041078-e363dbe005cb?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding: 0 2rem;
+            margin-top: 70px;
+        }
+        
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        .btn {
+            display: inline-block;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(74, 107, 255, 0.4);
+        }
+        
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(74, 107, 255, 0.6);
+        }
+        
+        /* About Section */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            font-size: 2.5rem;
+            color: var(--dark);
+            position: relative;
+        }
+        
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            margin: 0.5rem auto;
+            border-radius: 2px;
+        }
+        
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+        
+        .about-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .about-text h3 {
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        /* Research Areas */
+        .research-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+        
+        .research-card {
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .research-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .research-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+        }
+        
+        .research-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        /* Team Section */
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .team-card {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        
+        .team-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+        }
+        
+        .team-img {
+            height: 250px;
+            overflow: hidden;
+        }
+        
+        .team-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        
+        .team-card:hover .team-img img {
+            transform: scale(1.1);
+        }
+        
+        .team-info {
+            padding: 1.5rem;
+        }
+        
+        .team-info h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .team-info p {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 1rem;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .social-links a {
+            color: var(--dark);
+            transition: all 0.3s ease;
+        }
+        
+        .social-links a:hover {
+            color: var(--primary);
+        }
+        
+        /* Publications */
+        .pub-list {
+            list-style: none;
+        }
+        
+        .pub-item {
+            background: white;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .pub-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .pub-item h3 {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+        }
+        
+        .pub-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .pub-link {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        /* Contact Section */
+        .contact-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+        
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .contact-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+        
+        .contact-card i {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-top: 0.3rem;
+        }
+        
+        .contact-form {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(74, 107, 255, 0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 4rem 2rem 2rem;
+            text-align: center;
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            text-align: left;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-col h3 {
+            font-size: 1.3rem;
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .footer-col h3::after {
+            content: '';
+            display: block;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, var(--primary), var(--secondary));
+            margin-top: 0.5rem;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.8rem;
+        }
+        
+        .footer-links a {
+            color: #ccc;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+            padding-left: 5px;
+        }
+        
+        .copyright {
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .fade-in {
+            animation: fadeIn 1s ease forwards;
+        }
+        
+        .delay-1 { animation-delay: 0.2s; }
+        .delay-2 { animation-delay: 0.4s; }
+        .delay-3 { animation-delay: 0.6s; }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .about-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .about-image {
+                order: -1;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .navbar {
+                padding: 1rem;
+            }
+            
+            .nav-links {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 100%;
+                height: calc(100vh - 70px);
+                background: var(--dark);
+                flex-direction: column;
+                align-items: center;
+                padding: 2rem 0;
+                transition: all 0.5s ease;
+            }
+            
+            .nav-links.active {
+                left: 0;
+            }
+            
+            .nav-links li {
+                margin: 1rem 0;
+            }
+            
+            .menu-toggle {
+                display: block;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 4rem 1rem;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <a href="#" class="logo">
+            <img src="https://via.placeholder.com/40x40" alt="Femto Research Logo">
+            Femto Research
+        </a>
+        <ul class="nav-links">
+            <li><a href="#home">หน้าแรก</a></li>
+            <li><a href="#about">เกี่ยวกับเรา</a></li>
+            <li><a href="#research">งานวิจัย</a></li>
+            <li><a href="#team">ทีมวิจัย</a></li>
+            <li><a href="#publications">ผลงานตีพิมพ์</a></li>
+            <li><a href="#contact">ติดต่อเรา</a></li>
+        </ul>
+        <div class="menu-toggle">
+            <i class="fas fa-bars"></i>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-content fade-in">
+            <h1 class="delay-1">กลุ่มวิจัยระดับฟีมโต</h1>
+            <p class="delay-2">เรามุ่งมั่นในการวิจัยและพัฒนานวัตกรรมในระดับฟีมโตเทคโนโลยี เพื่อสร้างสรรค์อนาคตที่ยั่งยืน</p>
+            <a href="#about" class="btn delay-3">เรียนรู้เพิ่มเติม</a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="section">
+        <h2 class="section-title">เกี่ยวกับเรา</h2>
+        <div class="about-content">
+            <div class="about-text fade-in">
+                <h3>กลุ่มวิจัยระดับฟีมโต</h3>
+                <p>Femto Research Group เป็นกลุ่มวิจัยชั้นนำที่มุ่งเน้นการพัฒนานวัตกรรมในระดับฟีมโตเทคโนโลยี เราทำงานวิจัยข้ามสาขาวิชาเพื่อแก้ไขปัญหาท้าทายในโลกปัจจุบัน</p>
+                <p>ทีมวิจัยของเราประกอบด้วยนักวิทยาศาสตร์และวิศวกรที่มีความเชี่ยวชาญจากหลากหลายสาขา ซึ่งทำงานร่วมกันเพื่อสร้างความก้าวหน้าทางวิทยาศาสตร์และเทคโนโลยี</p>
+                <p>เรามีความร่วมมือกับสถาบันวิจัยและมหาวิทยาลัยชั้นนำทั่วโลก เพื่อส่งเสริมการแลกเปลี่ยนความรู้และความร่วมมือระหว่างประเทศ</p>
+            </div>
+            <div class="about-image fade-in delay-1">
+                <img src="https://images.unsplash.com/photo-1581092921461-39b2f2b8b449?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Laboratory">
+            </div>
+        </div>
+    </section>
+
+    <!-- Research Areas -->
+    <section id="research" class="section" style="background-color: #f5f7ff;">
+        <h2 class="section-title">สาขาวิจัย</h2>
+        <div class="research-grid">
+            <div class="research-card fade-in">
+                <i class="fas fa-atom"></i>
+                <h3>ฟีมโตเทคโนโลยี</h3>
+                <p>การวิจัยและพัฒนาเทคโนโลยีในระดับฟีมโตเมตร (10^-15 เมตร) เพื่อประยุกต์ใช้ในด้านต่างๆ เช่น การแพทย์ พลังงาน และอิเล็กทรอนิกส์</p>
+            </div>
+            <div class="research-card fade-in delay-1">
+                <i class="fas fa-microscope"></i>
+                <h3>นาโนศาสตร์ขั้นสูง</h3>
+                <p>การศึกษาคุณสมบัติและการประยุกต์ใช้วัสดุนาโนในสภาวะพิเศษ และการพัฒนาวิธีการสังเคราะห์วัสดุนาโนแบบใหม่</p>
+            </div>
+            <div class="research-card fade-in delay-2">
+                <i class="fas fa-biohazard"></i>
+                <h3>เทคโนโลยีชีวภาพ</h3>
+                <p>การประยุกต์ใช้หลักการทางชีววิทยาในระดับโมเลกุลเพื่อพัฒนาระบบและอุปกรณ์ใหม่ๆ สำหรับการแพทย์และสิ่งแวดล้อม</p>
+            </div>
+            <div class="research-card fade-in delay-3">
+                <i class="fas fa-solar-panel"></i>
+                <h3>พลังงานสะอาด</h3>
+                <p>การวิจัยและพัฒนาแหล่งพลังงานทางเลือกที่มีประสิทธิภาพสูงและเป็นมิตรกับสิ่งแวดล้อมในระดับโมเลกุล</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section id="team" class="section">
+        <h2 class="section-title">ทีมวิจัย</h2>
+        <div class="team-grid">
+            <div class="team-card fade-in">
+                <div class="team-img">
+                    <img src="https://randomuser.me/api/portraits/women/65.jpg" alt="Dr. Jane Smith">
+                </div>
+                <div class="team-info">
+                    <h3>ดร. สมหญิง ใจดี</h3>
+                    <p>หัวหน้ากลุ่มวิจัย</p>
+                    <p>ผู้เชี่ยวชาญด้านฟีมโตเทคโนโลยี</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-google-scholar"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="team-card fade-in delay-1">
+                <div class="team-img">
+                    <img src="https://randomuser.me/api/portraits/men/32.jpg" alt="Dr. John Doe">
+                </div>
+                <div class="team-info">
+                    <h3>ดร. สมชาย เก่งดี</h3>
+                    <p>นักวิจัยอาวุโส</p>
+                    <p>ผู้เชี่ยวชาญด้านนาโนศาสตร์</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-google-scholar"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="team-card fade-in delay-2">
+                <div class="team-img">
+                    <img src="https://randomuser.me/api/portraits/women/44.jpg" alt="Dr. Sarah Lee">
+                </div>
+                <div class="team-info">
+                    <h3>ดร. สุดา ใจกล้า</h3>
+                    <p>นักวิจัยอาวุโส</p>
+                    <p>ผู้เชี่ยวชาญด้านเทคโนโลยีชีวภาพ</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-google-scholar"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="team-card fade-in delay-3">
+                <div class="team-img">
+                    <img src="https://randomuser.me/api/portraits/men/75.jpg" alt="Dr. Michael Chen">
+                </div>
+                <div class="team-info">
+                    <h3>ดร. วีรยุทธ กล้าหาญ</h3>
+                    <p>นักวิจัย</p>
+                    <p>ผู้เชี่ยวชาญด้านพลังงานสะอาด</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-google-scholar"></i></a>
+                        <a href="#"><i class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Publications -->
+    <section id="publications" class="section" style="background-color: #f5f7ff;">
+        <h2 class="section-title">ผลงานตีพิมพ์ล่าสุด</h2>
+        <ul class="pub-list">
+            <li class="pub-item fade-in">
+                <h3>การพัฒนาวัสดุระดับฟีมโตสำหรับการประยุกต์ใช้ในเซลล์แสงอาทิตย์ประสิทธิภาพสูง</h3>
+                <div class="pub-meta">
+                    <span><i class="fas fa-user"></i> สมหญิง ใจดี และคณะ</span>
+                    <span><i class="fas fa-calendar"></i> 2023</span>
+                    <span><i class="fas fa-book"></i> Nature Nanotechnology</span>
+                </div>
+                <a href="#" class="pub-link"><i class="fas fa-external-link-alt"></i> อ่านบทความ</a>
+            </li>
+            <li class="pub-item fade-in delay-1">
+                <h3>การสังเคราะห์อนุภาคนาโนด้วยเทคนิคฟีมโตเลเซอร์สำหรับการใช้งานทางการแพทย์</h3>
+                <div class="pub-meta">
+                    <span><i class="fas fa-user"></i> สมชาย เก่งดี และคณะ</span>
+                    <span><i class="fas fa-calendar"></i> 2022</span>
+                    <span><i class="fas fa-book"></i> Advanced Materials</span>
+                </div>
+                <a href="#" class="pub-link"><i class="fas fa-external-link-alt"></i> อ่านบทความ</a>
+            </li>
+            <li class="pub-item fade-in delay-2">
+                <h3>ระบบตรวจวัดระดับโมเลกุลด้วยเทคโนโลยีควอนตัมจุด</h3>
+                <div class="pub-meta">
+                    <span><i class="fas fa-user"></i> สุดา ใจกล้า และคณะ</span>
+                    <span><i class="fas fa-calendar"></i> 2022</span>
+                    <span><i class="fas fa-book"></i> Science</span>
+                </div>
+                <a href="#" class="pub-link"><i class="fas fa-external-link-alt"></i> อ่านบทความ</a>
+            </li>
+        </ul>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2 class="section-title">ติดต่อเรา</h2>
+        <div class="contact-container">
+            <div class="contact-info fade-in">
+                <div class="contact-card">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div>
+                        <h3>ที่อยู่</h3>
+                        <p>คณะวิทยาศาสตร์และเทคโนโลยี<br>มหาวิทยาลัยแห่งหนึ่ง<br>กรุงเทพมหานคร 10140</p>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <div>
+                        <h3>อีเมล</h3>
+                        <p>info@femtoresearch.org</p>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-phone"></i>
+                    <div>
+                        <h3>โทรศัพท์</h3>
+                        <p>+66 2 123 4567</p>
+                    </div>
+                </div>
+                <div class="contact-card">
+                    <i class="fas fa-clock"></i>
+                    <div>
+                        <h3>เวลาทำการ</h3>
+                        <p>จันทร์ - ศุกร์: 9:00 - 17:00 น.</p>
+                    </div>
+                </div>
+            </div>
+            <div class="contact-form fade-in delay-1">
+                <form>
+                    <div class="form-group">
+                        <label for="name">ชื่อ-นามสกุล</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">อีเมล</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">หัวข้อ</label>
+                        <input type="text" id="subject" class="form-control" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">ข้อความ</label>
+                        <textarea id="message" class="form-control" required></textarea>
+                    </div>
+                    <button type="submit" class="btn">ส่งข้อความ</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-content">
+            <div class="footer-col">
+                <h3>Femto Research</h3>
+                <p>กลุ่มวิจัยระดับฟีมโต มุ่งมั่นในการวิจัยและพัฒนานวัตกรรมในระดับฟีมโตเทคโนโลยี เพื่อสร้างสรรค์อนาคตที่ยั่งยืน</p>
+                <div class="social-links" style="justify-content: flex-start; gap: 1.5rem; margin-top: 1rem;">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    <a href="#"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+            <div class="footer-col">
+                <h3>ลิงก์ด่วน</h3>
+                <ul class="footer-links">
+                    <li><a href="#home">หน้าแรก</a></li>
+                    <li><a href="#about">เกี่ยวกับเรา</a></li>
+                    <li><a href="#research">งานวิจัย</a></li>
+                    <li><a href="#team">ทีมวิจัย</a></li>
+                    <li><a href="#publications">ผลงานตีพิมพ์</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>สาขาวิจัย</h3>
+                <ul class="footer-links">
+                    <li><a href="#">ฟีมโตเทคโนโลยี</a></li>
+                    <li><a href="#">นาโนศาสตร์ขั้นสูง</a></li>
+                    <li><a href="#">เทคโนโลยีชีวภาพ</a></li>
+                    <li><a href="#">พลังงานสะอาด</a></li>
+                    <li><a href="#">วัสดุศาสตร์ขั้นสูง</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <h3>ติดต่อเรา</h3>
+                <ul class="footer-links">
+                    <li><a href="mailto:info@femtoresearch.org">info@femtoresearch.org</a></li>
+                    <li><a href="tel:+6621234567">+66 2 123 4567</a></li>
+                    <li><a href="#">แผนที่สถานที่วิจัย</a></li>
+                    <li><a href="#">ร่วมงานกับเรา</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="copyright">
+            <p>&copy; 2023 Femto Research Group. สงวนลิขสิทธิ์ทุกประการ.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile Menu Toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navLinks = document.querySelector('.nav-links');
+        
+        menuToggle.addEventListener('click', () => {
+            navLinks.classList.toggle('active');
+        });
+        
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                
+                if (navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                }
+                
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+        
+        // Scroll Animation
+        const fadeElements = document.querySelectorAll('.fade-in');
+        
+        const fadeInOnScroll = () => {
+            fadeElements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const windowHeight = window.innerHeight;
+                
+                if (elementTop < windowHeight - 100) {
+                    element.style.opacity = '1';
+                    element.style.transform = 'translateY(0)';
+                }
+            });
+        };
+        
+        window.addEventListener('scroll', fadeInOnScroll);
+        window.addEventListener('load', fadeInOnScroll);
+    </script>
+</body>
+</html>
